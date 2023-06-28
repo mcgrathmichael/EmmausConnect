@@ -1,10 +1,10 @@
 import Home from "./pages/Home";
 
-import "./App.css";
+import "./main.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className="underline animate-bounce">
       <Home />
       <p>coucou</p>
     </div>
