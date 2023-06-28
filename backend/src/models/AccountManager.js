@@ -6,15 +6,16 @@ class AccountManager extends AbstractManager {
   }
 
   insert(account) {
-    return this.database.query(`insert into ${this.table} (title) values (?)`, [
-      account.title,
-    ]);
+    return this.database.query(
+      `insert into ${this.table} (email, pwd) values (?, ?)`,
+      [account.email, account.pwd]
+    );
   }
 
   update(account) {
     return this.database.query(
-      `update ${this.table} set title = ? where id = ?`,
-      [account.title, account.id]
+      `update ${this.table} set email = ? where pwd = ?`,
+      [account.email, account.pwd]
     );
   }
 }

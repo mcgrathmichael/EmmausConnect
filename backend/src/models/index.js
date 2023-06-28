@@ -29,6 +29,8 @@ pool.getConnection().catch(() => {
 
 const models = {};
 
+const AbstractManager = require("./AbstractManager");
+
 const ProductManager = require("./ProductManager");
 
 models.product = new ProductManager();
