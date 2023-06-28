@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS `emmaus_db`.`account` (
   `id_account` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(100) NOT NULL,
   `pwd` VARCHAR(45) NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
+
   PRIMARY KEY (`id_account`))
 ENGINE = InnoDB;
 
@@ -38,6 +40,8 @@ CREATE TABLE IF NOT EXISTS `emmaus_db`.`product` (
   `screen_size` INT NOT NULL,
   `network` VARCHAR(45) NOT NULL,
   `charger` TINYINT NOT NULL,
+  `phone_condition` VARCHAR(100) NOT NULL,
+  `blocked_operator` VARCHAR(100) NULL,
   `price` INT NULL,
   `account_id_account` INT NOT NULL,
   PRIMARY KEY (`product_id`, `account_id_account`),
@@ -54,4 +58,26 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO account (email, pwd) VALUES ("admin", "monmdpsupersafe");
+INSERT INTO account (email, pwd, role) VALUES ("admin@gmail.com", "monmdpsupersafe", "administrateur");
+INSERT INTO account (email, pwd, role) VALUES ("user@gmail.fr", "monmdpencoreplussafe", "utilisateur");
+INSERT INTO product (brand, model, os, ram, storage, screen_size, network, charger, phone_condition, blocked_operator, price, account_id_account)
+VALUES ("OnePlus", "Motorola Edge+", "Linux", 16, 128, 5.5, "3G", 1, "intact", "SFR", NULL, 1),
+("Motorola", "Motorola Edge+", "Windows", 64, 1000, 6.1, "4G", 0, "intact", NULL, NULL, 1),
+("Apple", "Iphone 8", "iOS", 8, 128, 5.5, "3G", 1, "Comme neuf", NULL, NULL, 1),
+("Huawei", "Motorola Edge+", "Android", 16, 256, 5.5, "5G", 1, "Comme neuf", NULL, NULL, 1),
+("OnePlus", "Motorola Edge+", "iOS", 8, 64, 5.5, "4G", 1, "rayures", "Orange", NULL, 1),
+("OnePlus", "Motorola Edge+", "iOS", 4, 128, 4.7, "4G", 1, "rayures", NULL, NULL, 1),
+("Huawei", "Huawei P30 Pro", "Android", 6, 64, 5.5, "4G", 1, "rayures", "Free", NULL, 1),
+("Samsung", "LG V60 ThinQ", "Linux", 16, 256, 6.1, "4G", 1, "rayures", NULL, NULL, 1),
+("Huawei", "Huawei P30 Pro", "Android", 2, 128, 4.7, "5G", 0, "rayures", NULL, NULL, 1),
+("OnePlus", "Motorola Edge+", "Windows", 8, 64, 5.5, "4G", 0, "rayures", NULL, NULL, 1),
+("Huawei", "Motorola Edge+", "Android", 8, 128, 6.1, "4G", 0, "rayures", NULL, NULL, 1),
+("Oppo", "Oppo Find X2 Pro", "Linux", 16, 256, 5.5, "4G", 1, "rayures", "Orange", NULL, 1),
+("OnePlus", "Motorola Edge+", "iOS", 16, 256, 6.7, "3G", 0, "rayures", NULL, NULL, 1),
+("Apple", "Iphone 4", "iOS", 4, 256, 5.5, "3G", 0, "rayures", NULL, NULL, 1),
+("Apple", "Iphone 7", "iOS", 4, 64, 6.1, "4G", 1, "rayures", "SFR", NULL, 1),
+("Nokia", "Motorola Edge+", "Android", 8, 64, 4.7, "5G", 1, "rayures", NULL, NULL, 1),
+("OnePlus", "Motorola Edge+", "Android", 4, 32, 5.5, "5G", 1, "rayures", NULL, NULL, 1),
+("Nokia", "Motorola Edge+", "Android", 16, 256, 4.7, "3G", 0, "rayures", "Free", NULL, 1),
+("OnePlus", "Motorola Edge+", "Windows", 2, 128, 4.7, "4G", 1, "Comme neuf", "Free", NULL, 1),
+("Nokia", "Motorola Edge+", "Android", 4, 64, 5.5, "3G", 1, "rayures", "Free", NULL, 1);
