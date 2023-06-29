@@ -1,7 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function PhoneForm() {
+  const [calculPrice, setCalculPrice] = useState(false);
+
+  // Price data
+  const ramPrices = {
+    1: 30,
+    2: 40,
+    3: 54,
+    4: 70,
+    6: 80,
+    8: 100,
+    12: 120,
+    16: 160,
+  };
+
+  const storagePrices = {
+    16: 31,
+    32: 45,
+    64: 66,
+    128: 90,
+    256: 120,
+    512: 150,
+    1000: 250,
+  };
+
+  let totalPrice = 0;
+  const calculatePhonePrice = (ram, storage, isScratched, isLocked) => {
+    const ramPrice = ramPrices[ram];
+    const storagePrice = storagePrices[storage];
+    totalPrice = ramPrice + storagePrice;
+
+    if (isScratched === "Présence de rayures") {
+      // Réduction de 50% pour un telephone rayé
+      totalPrice *= 0.5;
+    }
+
+    if (isLocked !== null) {
+      // Réduction de 10% pour un téléphone bloqué
+      totalPrice *= 0.9;
+    }
+
+    return totalPrice;
+  };
+
   const [phoneDetails, setPhoneDetails] = useState({
     brand: "",
     model: "",
@@ -13,7 +56,7 @@ function PhoneForm() {
     charger: "",
     phone_condition: "",
     blocked_operator: "",
-    price: "",
+    price: 0,
     phone_img: "",
     account_id_account: 1,
   });
@@ -33,29 +76,20 @@ function PhoneForm() {
 
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/products`, phoneDetails)
-      .then()
+      .then(() => setCalculPrice(true))
       .catch((error) => {
         console.error(error);
       });
-
-    // Reset the form
-    setPhoneDetails({
-      brand: "",
-      model: "",
-      os: "",
-      ram: "",
-      storage: "",
-      screen_size: "",
-      network: "",
-      charger: "",
-      phone_condition: "",
-      blocked_operator: "",
-      price: "",
-      phone_img: "",
-      account_id_account: 1,
-
-    });
   };
+
+  useEffect(() => {
+    calculatePhonePrice(
+      phoneDetails.ram,
+      phoneDetails.storage,
+      phoneDetails.phone_condition,
+      phoneDetails.blocked_operator
+    );
+  }, [calculPrice]);
 
   return (
     <form onSubmit={handleSubmit} className="m-12 p-14 space-y-6">
@@ -140,11 +174,12 @@ function PhoneForm() {
             className="border border-gray-300 rounded-md p-2"
           >
             <option value="">Sélectionnez Stockage</option>
-            <option value="4">4</option>
-            <option value="8">8</option>
-            <option value="16">16</option>
             <option value="32">32</option>
             <option value="64">64</option>
+            <option value="128">128</option>
+            <option value="256">256</option>
+            <option value="512">512</option>
+            <option value="1000">1000</option>
           </select>
         </label>
       </div>
@@ -232,7 +267,7 @@ function PhoneForm() {
             <option value="">Sélectionnez un état</option>
             <option value="Comme neuf">Comme neuf</option>
             <option value="Bon état">Bon état</option>
-            <option value="Rayure">Rayure</option>
+            <option value="Présence de rayures">Présence de rayures</option>
           </select>
         </label>
       </div>
@@ -251,20 +286,6 @@ function PhoneForm() {
             <option value="Oui">Oui</option>
             <option value="Non">Non</option>
           </select>
-        </label>
-      </div>
-
-      <div>
-        <label className="text-lg">
-          Prix :
-          <input
-            type="text"
-            name="price"
-            value={phoneDetails.price}
-            required
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          />
         </label>
       </div>
 
