@@ -7,7 +7,7 @@ class ProductManager extends AbstractManager {
 
   insert(product) {
     return this.database.query(
-      `insert into ${this.table} (brand, model, os, ram, storage, screen_size, network, charger, phone_condition, blocked_operator, price, account_id_account) values (?, ? ,? ,? ,? ,? ,? ,?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (brand, model, os, ram, storage, screen_size, network, charger, phone_condition, blocked_operator, price, phone_img, account_id_account) values (?, ? ,? ,? ,? ,? ,? ,?, ?, ?, ?, ?, ?)`,
       [
         product.brand,
         product.model,
@@ -20,6 +20,7 @@ class ProductManager extends AbstractManager {
         product.phone_condition,
         product.blocked_operator,
         product.price,
+        product.phone_img,
         product.account_id_account,
       ]
     );
