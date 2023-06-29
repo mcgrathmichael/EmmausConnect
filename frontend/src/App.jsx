@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import PhoneForm from "./Components/NouveauProd";
 import "./main.css";
 import Login from "./Components/login/Login";
+import MobileResume from "./Components/MobileResume";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/nouveauproduit" element={<PhoneForm />} />
         <Route path="/databaselist" element={<Database />} />
+        <Route path="/resume" element={<MobileResume />} />
       </Routes>
     </div>
   );
