@@ -53,6 +53,7 @@ function PhoneForm() {
       price: "",
       phone_img: "",
       account_id_account: 1,
+
     });
   };
 
@@ -69,7 +70,6 @@ function PhoneForm() {
             className="border border-gray-300 rounded-md p-2"
             required
           >
-            {" "}
             <option value="LG">LG</option>
             <option value="Sony">Sony</option>
             <option value="Nokia">Nokia</option>
@@ -122,6 +122,8 @@ function PhoneForm() {
           >
             <option value="">Sélectionnez un OS</option>
             <option value="Apple">Apple</option>
+            <option value="iOS">iOS</option>
+            <option value="Windows">Windows</option>
             <option value="Android">Android</option>
           </select>
         </label>

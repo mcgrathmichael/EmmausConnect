@@ -1,18 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Login from "../Components/login/Login";
 
 function Home() {
-  const navigate = useNavigate();
-
-  const handeClickDbList = () => {
-    navigate("/DatabaseList");
-  };
-
   return (
     <div>
-      <button type="button" onClick={handeClickDbList}>
-        Consultez la base de données
-      </button>
+      <Login />
     </div>
   );
 }

@@ -36,6 +36,7 @@
   "dependencies": {
     "argon2": "^0.30.3",
     "axios": "^1.4.0",
+    "prop-types": "^15.8.1",
     "react-burger-menu": "^3.0.9",
     "react-router-dom": "^6.14.0"
   }

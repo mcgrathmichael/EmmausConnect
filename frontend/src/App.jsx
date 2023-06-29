@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Burger from "./Components/Burger";
-import DatabaseList from "./Components/DatabaseList";
+import Database from "./Components/Database";
 import Home from "./pages/Home";
 import PhoneForm from "./Components/NouveauProd";
 import "./main.css";
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/nouveauproduit" element={<PhoneForm />} />
-        <Route path="/databaselist" element={<DatabaseList />} />
+        <Route path="/databaselist" element={<Database />} />
       </Routes>
     </div>
   );
