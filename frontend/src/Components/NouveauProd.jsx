@@ -35,7 +35,6 @@ function PhoneForm() {
       .post(`${import.meta.env.VITE_BACKEND_URL}/products`, phoneDetails)
       .then()
       .catch((error) => {
-        // Handle the error if the request fails
         console.error(error);
       });
 
@@ -53,6 +52,8 @@ function PhoneForm() {
       blocked_operator: "",
       price: "",
       phone_img: "",
+      account_id_account: 1,
+
     });
   };
 
@@ -120,6 +121,7 @@ function PhoneForm() {
             className="border border-gray-300 rounded-md p-2"
           >
             <option value="">Sélectionnez un OS</option>
+            <option value="Apple">Apple</option>
             <option value="iOS">iOS</option>
             <option value="Windows">Windows</option>
             <option value="Android">Android</option>
@@ -273,20 +275,6 @@ function PhoneForm() {
             type="text"
             name="phone_img"
             value={phoneDetails.phone_img}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </label>
-      </div>
-
-      <div>
-        <label className="text-lg">
-          ID du compte :
-          <input
-            type="text"
-            name="account_id_account"
-            value={phoneDetails.account_id_account}
-            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           />
