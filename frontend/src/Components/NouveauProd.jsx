@@ -1,4 +1,10 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useState } from "react";
+import axios from "axios";
+
+const PhoneForm = () => {
+  
+  import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function PhoneForm() {
@@ -90,18 +96,24 @@ function PhoneForm() {
       phoneDetails.blocked_operator
     );
   }, [calculPrice]);
-
+  
+  
+  
+  
   return (
-    <form onSubmit={handleSubmit} className="m-12 p-14 space-y-6">
-      <div>
-        <label className="text-lg">
+    <form
+      onSubmit={handleSubmit}
+      className="md:m-12 m-6 md:p-14 space-y-6 sm:text-md text-gray-700"
+    >
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400 ">
+        <label className="text-xl h-1/2 font-bold">
           Marque :
           <select
             type="text"
             name="brand"
             value={phoneDetails.brand}
             onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
+            className="border border-gray-300 sm:text-md rounded-md p-4"
             required
           >
             <option value="LG">LG</option>
@@ -114,24 +126,11 @@ function PhoneForm() {
             <option value="Apple">Apple</option>
           </select>
         </label>
-        <div className="flex justify-center md:justify-between">
-          <button
-            type="button"
-            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-          >
-            Précédent
-          </button>
-          <button
-            type="button"
-            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-          >
-            Suivant
-          </button>
-        </div>
+      
       </div>
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl h-1/2 font-bold">
           Modèle :
           <input
             type="text"
@@ -139,23 +138,21 @@ function PhoneForm() {
             value={phoneDetails.model}
             required
             onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          />
+            className="border  border-gray-300 rounded-md p-2 w-1/2"
+          ></input>
         </label>
       </div>
-
-      <div>
-        <label className="text-lg">
-          Système d'exploitation (OS) :
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl h-1/2 font-bold">
+          Système d'exploitation (OS):
           <select
             name="os"
             value={phoneDetails.os}
             onChange={handleInputChange}
             required
-            className="border border-gray-300 rounded-md p-2"
+            className="border border-gray-300 rounded-md p-2 sm:w-24 md:w-48"
           >
             <option value="">Sélectionnez un OS</option>
-            <option value="Apple">Apple</option>
             <option value="iOS">iOS</option>
             <option value="Windows">Windows</option>
             <option value="Android">Android</option>
@@ -163,8 +160,8 @@ function PhoneForm() {
         </label>
       </div>
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
           Stockage :
           <select
             name="storage"
@@ -174,18 +171,17 @@ function PhoneForm() {
             className="border border-gray-300 rounded-md p-2"
           >
             <option value="">Sélectionnez Stockage</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
             <option value="32">32</option>
             <option value="64">64</option>
-            <option value="128">128</option>
-            <option value="256">256</option>
-            <option value="512">512</option>
-            <option value="1000">1000</option>
           </select>
         </label>
       </div>
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
           RAM :
           <select
             name="ram"
@@ -204,8 +200,8 @@ function PhoneForm() {
 
       {/* Add more form fields for other phone details */}
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
           Taille de l'écran :
           <input
             type="text"
@@ -218,8 +214,8 @@ function PhoneForm() {
         </label>
       </div>
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
           Réseau :
           <select
             name="network"
@@ -236,8 +232,8 @@ function PhoneForm() {
         </label>
       </div>
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
           Chargeur :
           <select
             type="text"
@@ -254,8 +250,8 @@ function PhoneForm() {
         </label>
       </div>
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
           État du téléphone :
           <select
             name="phone_condition"
@@ -267,13 +263,13 @@ function PhoneForm() {
             <option value="">Sélectionnez un état</option>
             <option value="Comme neuf">Comme neuf</option>
             <option value="Bon état">Bon état</option>
-            <option value="Présence de rayures">Présence de rayures</option>
+            <option value="Rayure">Rayure</option>
           </select>
         </label>
       </div>
 
-      <div>
-        <label className="text-lg">
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
           Opérateur bloqué :
           <select
             name="blocked_operator"
@@ -288,27 +284,27 @@ function PhoneForm() {
           </select>
         </label>
       </div>
+  
 
       <div>
-        <label className="text-lg">
-          Image du téléphone :
+    
+      </div>
+
+      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
+        <label className="text-xl font-bold">
+          ID du compte :
           <input
             type="text"
-            name="phone_img"
-            value={phoneDetails.phone_img}
+            name="account_id_account"
+            value={phoneDetails.account_id_account}
+            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           />
         </label>
       </div>
 
-      <div className="flex justify-center md:justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
+      <div className="flex justify-center md:justify-center">
         <button
           onClick={handleSubmit}
           type="button"
@@ -319,36 +315,10 @@ function PhoneForm() {
       </div>
     </form>
   );
-}
-
+};
 export default PhoneForm;
 
-//     <div className=" m-12 p-14  ">
-//       <div>
-//         <h2 className="bg-gray-300 my-12 p-24 rounded-md flex  justify-center">
-//           Quel est le système d’exploitation du téléphone ?
-//         </h2>
-//         <div className="flex gap-10 row">
-//           <h3 className="bg-gray-200">Android</h3>
-//           <h3 className="bg-gray-200 ">Apple</h3>
-//         </div>
-//       </div>
-//       <div className="flex justify-center gap-12">
-//         <button
-//           className=" bg-blue-600 text-white hover:ring-2  hover:bg-blue-700  hover:ease-in-out hover:ring-green ring-offset-1 overflow-hidden p-6 rounded-xl "
-//           type="button"
-//         >
-//           Précedent
-//         </button>
-//         <button
-//           className=" bg-blue-600 text-white hover:ring-2 hover:bg-blue-700 hover:ease-in-out hover:ring-green ring-offset-1 overflow-hidden p-6 rounded-xl "
-//           type="button"
-//         >
-//           Suivant
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
 
-// export default NouveauProduit;
+
+
+

@@ -1,12 +1,7 @@
 import React from "react";
-import Login from "../Components/login/Login";
 
 function Home() {
-  return (
-    <div>
-      <Login />
-    </div>
-  );
+  return <div></div>;
 }
 
 export default Home;
