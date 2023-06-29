@@ -1,14 +1,12 @@
-
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import MobileResume from "./MobileResume";
 
-const PhoneForm = () => {
-  
-  import React, { useEffect, useState } from "react";
-import axios from "axios";
+function NouveauProd() {
+  const [smartphonePrice, setSmartphonePrice] = useState(0);
 
-function PhoneForm() {
-  const [calculPrice, setCalculPrice] = useState(false);
+  const navigate = useNavigate();
 
   // Price data
   const ramPrices = {
@@ -32,11 +30,10 @@ function PhoneForm() {
     1000: 250,
   };
 
-  let totalPrice = 0;
   const calculatePhonePrice = (ram, storage, isScratched, isLocked) => {
     const ramPrice = ramPrices[ram];
     const storagePrice = storagePrices[storage];
-    totalPrice = ramPrice + storagePrice;
+    let totalPrice = ramPrice + storagePrice;
 
     if (isScratched === "Présence de rayures") {
       // Réduction de 50% pour un telephone rayé
@@ -77,248 +74,266 @@ function PhoneForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform any further processing or calculations with the phoneDetails object
-    // For example, you can calculate the value of the phone here based on the entered details
 
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/products`, phoneDetails)
-      .then(() => setCalculPrice(true))
+      .then(() => {
+        // La sauvegarde dans la base de données est terminée
+        // Utilisez maintenant les données pour calculer le prix
+        const phonePrice = calculatePhonePrice(
+          phoneDetails.ram,
+          phoneDetails.storage,
+          phoneDetails.phone_condition,
+          phoneDetails.blocked_operator
+        );
+        setSmartphonePrice(phonePrice);
+        // console.log("Prix du téléphone :", phonePrice);
+        navigate("/Resume");
+
+        // Effectuez d'autres actions nécessaires après le calcul du prix
+      })
       .catch((error) => {
         console.error(error);
       });
   };
 
-  useEffect(() => {
-    calculatePhonePrice(
-      phoneDetails.ram,
-      phoneDetails.storage,
-      phoneDetails.phone_condition,
-      phoneDetails.blocked_operator
-    );
-  }, [calculPrice]);
-  
-  
-  
-  
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="md:m-12 m-6 md:p-14 space-y-6 sm:text-md text-gray-700"
-    >
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400 ">
-        <label className="text-xl h-1/2 font-bold">
-          Marque :
-          <select
-            type="text"
-            name="brand"
-            value={phoneDetails.brand}
-            onChange={handleInputChange}
-            className="border border-gray-300 sm:text-md rounded-md p-4"
-            required
+    <>
+      <form className="m-12 p-14 space-y-6">
+        <div>
+          <label className="text-lg">
+            Marque :
+            <select
+              type="text"
+              name="brand"
+              value={phoneDetails.brand}
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+              required
+            >
+              <option value="LG">LG</option>
+              <option value="Sony">Sony</option>
+              <option value="Nokia">Nokia</option>
+              <option value="Google">Google</option>
+              <option value="Samsung">Samsung</option>
+              <option value="Huawei">Huawei</option>
+              <option value="Xiaomi">Xiaomi</option>
+              <option value="Apple">Apple</option>
+            </select>
+          </label>
+          <div className="flex justify-center md:justify-between">
+            <button
+              type="button"
+              className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
+            >
+              Précédent
+            </button>
+            <button
+              type="button"
+              className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
+            >
+              Suivant
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            Modèle :
+            <input
+              type="text"
+              name="model"
+              value={phoneDetails.model}
+              required
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+            />
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            Système d'exploitation (OS) :
+            <select
+              name="os"
+              value={phoneDetails.os}
+              onChange={handleInputChange}
+              required
+              className="border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Sélectionnez un OS</option>
+              <option value="iOS">iOS</option>
+              <option value="Windows">Windows</option>
+              <option value="Android">Android</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            Stockage :
+            <select
+              name="storage"
+              value={phoneDetails.storage}
+              onChange={handleInputChange}
+              required
+              className="border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Sélectionnez Stockage</option>
+              <option value="32">32</option>
+              <option value="64">64</option>
+              <option value="128">128</option>
+              <option value="256">256</option>
+              <option value="512">512</option>
+              <option value="1000">1000</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            RAM :
+            <select
+              name="ram"
+              value={phoneDetails.ram}
+              onChange={handleInputChange}
+              required
+              className="border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Sélectionnez RAM</option>
+              <option value="4">4</option>
+              <option value="8">8</option>
+              <option value="16">16</option>
+            </select>
+          </label>
+        </div>
+
+        {/* Add more form fields for other phone details */}
+
+        <div>
+          <label className="text-lg">
+            Taille de l'écran :
+            <input
+              type="text"
+              name="screen_size"
+              value={phoneDetails.screen_size}
+              required
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+            />
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            Réseau :
+            <select
+              name="network"
+              value={phoneDetails.network}
+              required
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Sélectionnez un réseau</option>
+              <option value="3g">3G</option>
+              <option value="4g">4G</option>
+              <option value="5g">5G</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            Chargeur :
+            <select
+              type="text"
+              name="charger"
+              required
+              value={phoneDetails.charger}
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Sélectionnez une option</option>
+              <option value="1">Oui</option>
+              <option value="0">Non</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            État du téléphone :
+            <select
+              name="phone_condition"
+              required
+              value={phoneDetails.phone_condition}
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Sélectionnez un état</option>
+              <option value="Comme neuf">Comme neuf</option>
+              <option value="Bon état">Bon état</option>
+              <option value="Présence de rayures">Présence de rayures</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            Opérateur bloqué :
+            <select
+              name="blocked_operator"
+              value={phoneDetails.blocked_operator}
+              required
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+            >
+              <option value="">Sélectionnez une option</option>
+              <option value="Oui">Oui</option>
+              <option value="Non">Non</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label className="text-lg">
+            Image du téléphone :
+            <input
+              type="text"
+              name="phone_img"
+              value={phoneDetails.phone_img}
+              onChange={handleInputChange}
+              className="border border-gray-300 rounded-md p-2"
+            />
+          </label>
+        </div>
+
+        <div className="flex justify-center md:justify-between">
+          <button
+            type="button"
+            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
           >
-            <option value="LG">LG</option>
-            <option value="Sony">Sony</option>
-            <option value="Nokia">Nokia</option>
-            <option value="Google">Google</option>
-            <option value="Samsung">Samsung</option>
-            <option value="Huawei">Huawei</option>
-            <option value="Xiaomi">Xiaomi</option>
-            <option value="Apple">Apple</option>
-          </select>
-        </label>
-      
-      </div>
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl h-1/2 font-bold">
-          Modèle :
-          <input
-            type="text"
-            name="model"
-            value={phoneDetails.model}
-            required
-            onChange={handleInputChange}
-            className="border  border-gray-300 rounded-md p-2 w-1/2"
-          ></input>
-        </label>
-      </div>
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl h-1/2 font-bold">
-          Système d'exploitation (OS):
-          <select
-            name="os"
-            value={phoneDetails.os}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-300 rounded-md p-2 sm:w-24 md:w-48"
+            Précédent
+          </button>
+          <button
+            onClick={handleSubmit}
+            type="button"
+            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
           >
-            <option value="">Sélectionnez un OS</option>
-            <option value="iOS">iOS</option>
-            <option value="Windows">Windows</option>
-            <option value="Android">Android</option>
-          </select>
-        </label>
-      </div>
+            Enregistrer
+          </button>
+        </div>
+      </form>
 
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          Stockage :
-          <select
-            name="storage"
-            value={phoneDetails.storage}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-300 rounded-md p-2"
-          >
-            <option value="">Sélectionnez Stockage</option>
-            <option value="4">4</option>
-            <option value="8">8</option>
-            <option value="16">16</option>
-            <option value="32">32</option>
-            <option value="64">64</option>
-          </select>
-        </label>
-      </div>
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          RAM :
-          <select
-            name="ram"
-            value={phoneDetails.ram}
-            onChange={handleInputChange}
-            required
-            className="border border-gray-300 rounded-md p-2"
-          >
-            <option value="">Sélectionnez RAM</option>
-            <option value="4">4</option>
-            <option value="8">8</option>
-            <option value="16">16</option>
-          </select>
-        </label>
-      </div>
-
-      {/* Add more form fields for other phone details */}
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          Taille de l'écran :
-          <input
-            type="text"
-            name="screen_size"
-            value={phoneDetails.screen_size}
-            required
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </label>
-      </div>
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          Réseau :
-          <select
-            name="network"
-            value={phoneDetails.network}
-            required
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          >
-            <option value="">Sélectionnez un réseau</option>
-            <option value="3g">3G</option>
-            <option value="4g">4G</option>
-            <option value="5g">5G</option>
-          </select>
-        </label>
-      </div>
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          Chargeur :
-          <select
-            type="text"
-            name="charger"
-            required
-            value={phoneDetails.charger}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          >
-            <option value="">Sélectionnez une option</option>
-            <option value="1">Oui</option>
-            <option value="0">Non</option>
-          </select>
-        </label>
-      </div>
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          État du téléphone :
-          <select
-            name="phone_condition"
-            required
-            value={phoneDetails.phone_condition}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          >
-            <option value="">Sélectionnez un état</option>
-            <option value="Comme neuf">Comme neuf</option>
-            <option value="Bon état">Bon état</option>
-            <option value="Rayure">Rayure</option>
-          </select>
-        </label>
-      </div>
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          Opérateur bloqué :
-          <select
-            name="blocked_operator"
-            value={phoneDetails.blocked_operator}
-            required
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          >
-            <option value="">Sélectionnez une option</option>
-            <option value="Oui">Oui</option>
-            <option value="Non">Non</option>
-          </select>
-        </label>
-      </div>
-  
-
-      <div>
-    
-      </div>
-
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          ID du compte :
-          <input
-            type="text"
-            name="account_id_account"
-            value={phoneDetails.account_id_account}
-            required
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </label>
-      </div>
-
-      <div className="flex justify-center md:justify-center">
-        <button
-          onClick={handleSubmit}
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Enregistrer
-        </button>
-      </div>
-    </form>
+      <MobileResume
+        smartphonePrice={smartphonePrice}
+        phoneDetails={phoneDetails}
+      />
+    </>
   );
-};
-export default PhoneForm;
+}
 
-
+export default NouveauProd;
 
 
 

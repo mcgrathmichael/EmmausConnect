@@ -5,7 +5,9 @@ import Home from "./pages/Home";
 import PhoneForm from "./Components/NouveauProd";
 import "./main.css";
 import Login from "./Components/login/Login";
+import MobileResume from "./Components/MobileResume";
 import logo from "./assets/emmaus.svg";
+
 
 function App() {
   return (
@@ -18,10 +20,9 @@ function App() {
 
       <Home />
       <Routes>
-        <Route path="/login" element={<Login />} />
         <Route path="/nouveauproduit" element={<PhoneForm />} />
         <Route path="/databaselist" element={<Database />} />
-        <Route path="/" element={<Login />} />
+        <Route path="/resume" element={<MobileResume />} />
       </Routes>
     </div>
   );
