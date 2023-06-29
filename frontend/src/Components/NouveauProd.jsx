@@ -48,6 +48,47 @@ function PhoneForm() {
     });
   };
 
+  // Price data
+  const ramPrices = {
+    1: 30,
+    2: 40,
+    3: 54,
+    4: 70,
+    6: 80,
+    8: 100,
+    12: 120,
+    16: 160,
+  };
+
+  const storagePrices = {
+    16: 31,
+    32: 45,
+    64: 66,
+    128: 90,
+    256: 120,
+    512: 150,
+    1000: 250,
+  };
+
+  const calculatePhonePrice = (ram, storage, isScratched, isLocked) => {
+    const ramPrice = ramPrices[ram];
+    const storagePrice = storagePrices[storage];
+    let totalPrice = ramPrice + storagePrice;
+
+    if (isScratched === "Présence de rayures") {
+      // Réduction de 50% pour un telephone rayé
+      totalPrice *= 0.5;
+    }
+
+    if (isLocked !== null) {
+      // Réduction de 10% pour un téléphone bloqué
+      totalPrice *= 0.9;
+    }
+
+    return totalPrice;
+  };
+
+  calculatePhonePrice();
   return (
     <form onSubmit={handleSubmit} className="m-12 p-14 space-y-6">
       <div>
