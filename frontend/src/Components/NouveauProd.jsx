@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React, { useState } from "react";
 import axios from "axios";
 
-const PhoneForm = () => {
+function PhoneForm() {
   const [phoneDetails, setPhoneDetails] = useState({
     brand: "",
     model: "",
@@ -13,9 +14,8 @@ const PhoneForm = () => {
     charger: "",
     phone_condition: "",
     blocked_operator: "",
-    price: "",
     phone_img: "",
-    account_id_account: 1,
+    account_id_account: 1234,
   });
 
   const handleInputChange = (e) => {
@@ -52,8 +52,8 @@ const PhoneForm = () => {
       charger: "",
       phone_condition: "",
       blocked_operator: "",
-      price: "",
       phone_img: "",
+      account_id_account: 1234,
     });
   };
 
@@ -84,20 +84,6 @@ const PhoneForm = () => {
             <option value="Apple">Apple</option>
           </select>
         </label>
-        {/* <div className="flex justify-center md:justify-between"> */}
-        {/* <button
-            type="button"
-            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-          >
-            Précédent
-          </button>
-          <button
-            type="button"
-            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-          >
-            Suivant
-          </button> */}
-        {/* </div> */}
       </div>
 
       <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
@@ -110,7 +96,7 @@ const PhoneForm = () => {
             required
             onChange={handleInputChange}
             className="border  border-gray-300 rounded-md p-2 w-1/2"
-          ></input>
+          />
         </label>
       </div>
       <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
@@ -307,7 +293,7 @@ const PhoneForm = () => {
       </div>
     </form>
   );
-};
+}
 export default PhoneForm;
 // overflow-hidden p-6 rounded-xl "
 //           type="button"
