@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import PropTypes from "prop-types";
 
 function PhoneList({ smartphones }) {
@@ -267,6 +268,8 @@ function PhoneList({ smartphones }) {
     </div>
   );
 }
+
+export default PhoneList;
 PhoneList.propTypes = {
   smartphones: PropTypes.arrayOf(
     PropTypes.shape({
@@ -281,5 +284,3 @@ PhoneList.propTypes = {
     })
   ).isRequired,
 };
-
-export default PhoneList;
