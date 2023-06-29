@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+
 const PhoneForm = () => {
   const [phoneDetails, setPhoneDetails] = useState({
     brand: "",
@@ -53,7 +54,6 @@ const PhoneForm = () => {
       blocked_operator: "",
       price: "",
       phone_img: "",
-      account_id_account: "",
     });
   };
 
@@ -71,7 +71,6 @@ const PhoneForm = () => {
             className="border border-gray-300 rounded-md p-2"
             required
           >
-            {" "}
             <option value="LG">LG</option>
             <option value="Sony">Sony</option>
             <option value="Nokia">Nokia</option>
@@ -123,7 +122,8 @@ const PhoneForm = () => {
             className="border border-gray-300 rounded-md p-2"
           >
             <option value="">Sélectionnez un OS</option>
-            <option value="Apple">Apple</option>
+            <option value="iOS">iOS</option>
+            <option value="Windows">Windows</option>
             <option value="Android">Android</option>
           </select>
         </label>
