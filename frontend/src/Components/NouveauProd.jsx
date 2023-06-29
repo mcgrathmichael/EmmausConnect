@@ -52,7 +52,7 @@ function PhoneForm() {
       blocked_operator: "",
       price: "",
       phone_img: "",
-      account_id_account: "",
+      account_id_account: 1,
     });
   };
 
@@ -273,20 +273,6 @@ function PhoneForm() {
             type="text"
             name="phone_img"
             value={phoneDetails.phone_img}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </label>
-      </div>
-
-      <div>
-        <label className="text-lg">
-          ID du compte :
-          <input
-            type="text"
-            name="account_id_account"
-            value={phoneDetails.account_id_account}
-            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           />
