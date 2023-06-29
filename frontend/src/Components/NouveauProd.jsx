@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
-function PhoneForm() {
+import axios from "axios";
+const PhoneForm = () => {
   const [phoneDetails, setPhoneDetails] = useState({
     brand: "",
     model: "",
@@ -14,7 +14,7 @@ function PhoneForm() {
     blocked_operator: "",
     price: "",
     phone_img: "",
-    account_id_account: "",
+    account_id_account: 1,
   });
 
   const handleInputChange = (e) => {
@@ -29,6 +29,15 @@ function PhoneForm() {
     e.preventDefault();
     // Perform any further processing or calculations with the phoneDetails object
     // For example, you can calculate the value of the phone here based on the entered details
+
+    axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}/products`, phoneDetails)
+      .then((response) => {
+        // Handle the server response if needed
+      })
+      .catch((error) => {
+        // Handle the error if the request fails
+      });
 
     // Reset the form
     setPhoneDetails({
@@ -48,33 +57,45 @@ function PhoneForm() {
     });
   };
 
+  console.log(phoneDetails);
   return (
     <form onSubmit={handleSubmit} className="m-12 p-14 space-y-6">
       <div>
         <label className="text-lg">
           Marque :
-          <input
+          <select
             type="text"
             name="brand"
             value={phoneDetails.brand}
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
-          />
+            required
+          >
+            {" "}
+            <option value="LG">LG</option>
+            <option value="Sony">Sony</option>
+            <option value="Nokia">Nokia</option>
+            <option value="Google">Google</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Huawei">Huawei</option>
+            <option value="Xiaomi">Xiaomi</option>
+            <option value="Apple">Apple</option>
+          </select>
         </label>
-      </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
+        <div className="flex justify-center md:justify-between">
+          <button
+            type="button"
+            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
+          >
+            Précédent
+          </button>
+          <button
+            type="button"
+            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
+          >
+            Suivant
+          </button>
+        </div>
       </div>
 
       <div>
@@ -84,24 +105,11 @@ function PhoneForm() {
             type="text"
             name="model"
             value={phoneDetails.model}
+            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
-          />
+          ></input>
         </label>
-      </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
       </div>
 
       <div>
@@ -111,6 +119,7 @@ function PhoneForm() {
             name="os"
             value={phoneDetails.os}
             onChange={handleInputChange}
+            required
             className="border border-gray-300 rounded-md p-2"
           >
             <option value="">Sélectionnez un OS</option>
@@ -119,46 +128,43 @@ function PhoneForm() {
           </select>
         </label>
       </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
+
+      <div>
+        <label className="text-lg">
+          Stockage :
+          <select
+            name="storage"
+            value={phoneDetails.storage}
+            onChange={handleInputChange}
+            required
+            className="border border-gray-300 rounded-md p-2"
+          >
+            <option value="">Sélectionnez Stockage</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="32">32</option>
+            <option value="64">64</option>
+          </select>
+        </label>
       </div>
 
       <div>
         <label className="text-lg">
           RAM :
-          <input
-            type="text"
+          <select
             name="ram"
             value={phoneDetails.ram}
             onChange={handleInputChange}
+            required
             className="border border-gray-300 rounded-md p-2"
-          />
+          >
+            <option value="">Sélectionnez RAM</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+          </select>
         </label>
-      </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
       </div>
 
       {/* Add more form fields for other phone details */}
@@ -170,24 +176,11 @@ function PhoneForm() {
             type="text"
             name="screen_size"
             value={phoneDetails.screen_size}
+            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           />
         </label>
-      </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
       </div>
 
       <div>
@@ -196,6 +189,7 @@ function PhoneForm() {
           <select
             name="network"
             value={phoneDetails.network}
+            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           >
@@ -206,46 +200,23 @@ function PhoneForm() {
           </select>
         </label>
       </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
-      </div>
 
       <div>
         <label className="text-lg">
           Chargeur :
-          <input
+          <select
             type="text"
             name="charger"
+            required
             value={phoneDetails.charger}
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
-          />
+          >
+            <option value="">Sélectionnez une option</option>
+            <option value="1">Oui</option>
+            <option value="0">Non</option>
+          </select>
         </label>
-      </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
       </div>
 
       <div>
@@ -253,30 +224,17 @@ function PhoneForm() {
           État du téléphone :
           <select
             name="phone_condition"
+            required
             value={phoneDetails.phone_condition}
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           >
             <option value="">Sélectionnez un état</option>
-            <option value="Intact">Intact</option>
             <option value="Comme neuf">Comme neuf</option>
+            <option value="Bon état">Bon état</option>
             <option value="Rayure">Rayure</option>
           </select>
         </label>
-      </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
       </div>
 
       <div>
@@ -285,6 +243,7 @@ function PhoneForm() {
           <select
             name="blocked_operator"
             value={phoneDetails.blocked_operator}
+            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           >
@@ -294,20 +253,6 @@ function PhoneForm() {
           </select>
         </label>
       </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
-      </div>
 
       <div>
         <label className="text-lg">
@@ -316,24 +261,11 @@ function PhoneForm() {
             type="text"
             name="price"
             value={phoneDetails.price}
+            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           />
         </label>
-      </div>
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
       </div>
 
       <div>
@@ -349,21 +281,6 @@ function PhoneForm() {
         </label>
       </div>
 
-      <div className="flex justify-between">
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Précédent
-        </button>
-        <button
-          type="button"
-          className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-        >
-          Suivant
-        </button>
-      </div>
-
       <div>
         <label className="text-lg">
           ID du compte :
@@ -371,13 +288,14 @@ function PhoneForm() {
             type="text"
             name="account_id_account"
             value={phoneDetails.account_id_account}
+            required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
           />
         </label>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-center md:justify-between">
         <button
           type="button"
           className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
@@ -385,15 +303,16 @@ function PhoneForm() {
           Précédent
         </button>
         <button
+          onClick={handleSubmit}
           type="button"
           className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
         >
-          Suivant
+          Enregistrer
         </button>
       </div>
     </form>
   );
-}
+};
 
 export default PhoneForm;
 
