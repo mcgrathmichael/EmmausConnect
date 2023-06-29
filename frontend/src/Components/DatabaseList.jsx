@@ -17,7 +17,7 @@ function DatabaseList() {
   return (
     <div className="flex justify-center">
       <div className="gap-4 space-y-4">
-        <h2 className="flex justify-center font-bold space-y-5">
+        <h2 className="flex justify-center font-bold space-y-5 mt-32">
           Base de données des smartphones
         </h2>
         {smartphones.length > 0 &&

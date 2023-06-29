@@ -44,7 +44,7 @@ function TestCalculAlgo() {
 
   // console.log(calculatePhonePrice(8, 512, "Présence de rayures", "SFR"));
   calculatePhonePrice();
-  return <div>test calcul algo</div>;
+  return <div />;
 }
 
 export default TestCalculAlgo;
