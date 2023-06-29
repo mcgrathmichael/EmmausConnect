@@ -1,15 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import DatabaseList from "./Components/DatabaseList";
+import Burger from "./components/Burger";
+import Database from "./Components/Database";
 import Home from "./pages/Home";
+import PhoneForm from "./Components/NouveauProd";
 import "./main.css";
 
 function App() {
   return (
     <div>
-      <Home />
+      <Burger />
 
+      <Home />
       <Routes>
-        <Route path="/databaselist" element={<DatabaseList />} />
+        <Route path="/nouveauproduit" element={<PhoneForm />} />
+        <Route path="/databaselist" element={<Database />} />
       </Routes>
     </div>
   );
