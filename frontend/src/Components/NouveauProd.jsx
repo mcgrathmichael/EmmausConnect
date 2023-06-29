@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-const PhoneForm = () => {
+
+function PhoneForm() {
   const [phoneDetails, setPhoneDetails] = useState({
     brand: "",
     model: "",
@@ -32,11 +33,9 @@ const PhoneForm = () => {
 
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/products`, phoneDetails)
-      .then((response) => {
-        // Handle the server response if needed
-      })
+      .then()
       .catch((error) => {
-        // Handle the error if the request fails
+        console.error(error);
       });
 
     // Reset the form
@@ -57,7 +56,6 @@ const PhoneForm = () => {
     });
   };
 
-  console.log(phoneDetails);
   return (
     <form onSubmit={handleSubmit} className="m-12 p-14 space-y-6">
       <div>
@@ -108,7 +106,7 @@ const PhoneForm = () => {
             required
             onChange={handleInputChange}
             className="border border-gray-300 rounded-md p-2"
-          ></input>
+          />
         </label>
       </div>
 
@@ -312,7 +310,7 @@ const PhoneForm = () => {
       </div>
     </form>
   );
-};
+}
 
 export default PhoneForm;
 
