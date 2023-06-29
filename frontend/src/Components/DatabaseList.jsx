@@ -33,7 +33,7 @@ function DatabaseList() {
                   className="w-40 h-auto object-contain mb-2"
                 />
               </div>
-              <div className="bg-[#00adb063]">
+              <div>
                 <h3 className="text-xl font-bold mb-1">
                   {smartphone.brand} {smartphone.model}
                 </h3>
