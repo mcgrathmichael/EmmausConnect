@@ -1,7 +1,56 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 
 const PhoneForm = () => {
+  
+  import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+function PhoneForm() {
+  const [calculPrice, setCalculPrice] = useState(false);
+
+  // Price data
+  const ramPrices = {
+    1: 30,
+    2: 40,
+    3: 54,
+    4: 70,
+    6: 80,
+    8: 100,
+    12: 120,
+    16: 160,
+  };
+
+  const storagePrices = {
+    16: 31,
+    32: 45,
+    64: 66,
+    128: 90,
+    256: 120,
+    512: 150,
+    1000: 250,
+  };
+
+  let totalPrice = 0;
+  const calculatePhonePrice = (ram, storage, isScratched, isLocked) => {
+    const ramPrice = ramPrices[ram];
+    const storagePrice = storagePrices[storage];
+    totalPrice = ramPrice + storagePrice;
+
+    if (isScratched === "Présence de rayures") {
+      // Réduction de 50% pour un telephone rayé
+      totalPrice *= 0.5;
+    }
+
+    if (isLocked !== null) {
+      // Réduction de 10% pour un téléphone bloqué
+      totalPrice *= 0.9;
+    }
+
+    return totalPrice;
+  };
+
   const [phoneDetails, setPhoneDetails] = useState({
     brand: "",
     model: "",
@@ -13,7 +62,7 @@ const PhoneForm = () => {
     charger: "",
     phone_condition: "",
     blocked_operator: "",
-    price: "",
+    price: 0,
     phone_img: "",
     account_id_account: 1,
   });
@@ -33,31 +82,24 @@ const PhoneForm = () => {
 
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/products`, phoneDetails)
-      .then((response) => {
-        // Handle the server response if needed
-      })
+      .then(() => setCalculPrice(true))
       .catch((error) => {
-        // Handle the error if the request fails
+        console.error(error);
       });
-
-    // Reset the form
-    setPhoneDetails({
-      brand: "",
-      model: "",
-      os: "",
-      ram: "",
-      storage: "",
-      screen_size: "",
-      network: "",
-      charger: "",
-      phone_condition: "",
-      blocked_operator: "",
-      price: "",
-      phone_img: "",
-    });
   };
 
-  console.log(phoneDetails);
+  useEffect(() => {
+    calculatePhonePrice(
+      phoneDetails.ram,
+      phoneDetails.storage,
+      phoneDetails.phone_condition,
+      phoneDetails.blocked_operator
+    );
+  }, [calculPrice]);
+  
+  
+  
+  
   return (
     <form
       onSubmit={handleSubmit}
@@ -84,20 +126,7 @@ const PhoneForm = () => {
             <option value="Apple">Apple</option>
           </select>
         </label>
-        {/* <div className="flex justify-center md:justify-between"> */}
-        {/* <button
-            type="button"
-            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-          >
-            Précédent
-          </button>
-          <button
-            type="button"
-            className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg"
-          >
-            Suivant
-          </button> */}
-        {/* </div> */}
+      
       </div>
 
       <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
@@ -255,31 +284,10 @@ const PhoneForm = () => {
           </select>
         </label>
       </div>
-      {/* 
-      <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
-        <label className="text-xl font-bold">
-          Prix :
-          <input
-            type="text"
-            name="price"
-            value={phoneDetails.price}
-            required
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </label>
-      </div> */}
+  
 
       <div>
-        {/* <label className="text-lg">
-          Image du téléphone :
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="border border-gray-300 rounded-md p-2"
-          />
-        </label> */}
+    
       </div>
 
       <div className="flex md:p-20 p-10 justify-center h-1/2 rounded-xl bg-gradient-to-bl from-blue-400 to-emerald-400">
@@ -309,20 +317,8 @@ const PhoneForm = () => {
   );
 };
 export default PhoneForm;
-// overflow-hidden p-6 rounded-xl "
-//           type="button"
-//         >
-//           Précedent
-//         </button>
-//         <button
-//           className=" bg-blue-600 text-white hover:ring-2 hover:bg-blue-700 hover:ease-in-out hover:ring-green ring-offset-1 overflow-hidden p-6 rounded-xl "
-//           type="button"
-//         >
-//           Suivant
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
 
-// export default NouveauProduit;
+
+
+
+

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-const PhoneList = ({ smartphones }) => {
+import PropTypes from "prop-types";
+
+function PhoneList({ smartphones }) {
   const [filters, setFilters] = useState({
     android: false,
     apple: false,
@@ -265,6 +267,20 @@ const PhoneList = ({ smartphones }) => {
       </div>
     </div>
   );
-};
+}
 
 export default PhoneList;
+PhoneList.propTypes = {
+  smartphones: PropTypes.arrayOf(
+    PropTypes.shape({
+      product_id: PropTypes.string.isRequired,
+      phone_img: PropTypes.string.isRequired,
+      brand: PropTypes.string.isRequired,
+      model: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      phone_condition: PropTypes.string.isRequired,
+      network: PropTypes.string.isRequired,
+      blocked_operator: PropTypes.string,
+    })
+  ).isRequired,
+};
