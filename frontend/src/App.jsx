@@ -4,16 +4,22 @@ import Database from "./Components/Database";
 import Home from "./pages/Home";
 import PhoneForm from "./Components/NouveauProd";
 import "./main.css";
-
+import Login from "./Components/login/Login";
+import logo from "./assets/emmaus.svg";
 function App() {
   return (
-    <div>
+    <div className="">
+      <div className="fixed top-0 right-0 z-50">
+        <img src={logo} alt="Image" className="h-24" />
+      </div>
+
       <Burger />
 
       <Home />
       <Routes>
         <Route path="/nouveauproduit" element={<PhoneForm />} />
         <Route path="/databaselist" element={<Database />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </div>
   );
