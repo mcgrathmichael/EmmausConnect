@@ -57,7 +57,7 @@ function PhoneList({ smartphones }) {
       (!filters.intact && !filters.commeNeuf && !filters.rayures) ||
       (filters.intact && smartphone.phone_condition === "intact") ||
       (filters.commeNeuf && smartphone.phone_condition === "Comme neuf") ||
-      (filters.rayures && smartphone.phone_condition === "rayures");
+      (filters.rayures && smartphone.phone_condition === "Présence de rayures");
 
     return isBrandMatch && isNetworkMatch && isBlockedMatch && isConditionMatch;
   });
@@ -255,8 +255,11 @@ function PhoneList({ smartphones }) {
               <h3 className="text-xl font-bold mb-1">
                 {smartphone.brand} {smartphone.model}
               </h3>
-              <h4 className="text-lg font-medium mb-1">{smartphone.price}</h4>
-              <p className="text-gray-500">{smartphone.phone_condition}</p>
+              <h4 className="text-lg font-medium mb-1">{smartphone.price} €</h4>
+              <p className="text-gray-500">
+                {" "}
+                Condition : {smartphone.phone_condition}
+              </p>
             </div>
           ))
         ) : (
