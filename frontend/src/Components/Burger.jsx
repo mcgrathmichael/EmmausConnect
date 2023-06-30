@@ -1,4 +1,4 @@
-import { slide as Menu } from "react-burger-menu";
+/* eslint-disable */ import { slide as Menu } from "react-burger-menu";
 import { useNavigate } from "react-router-dom";
 import "./Burger.css";
 // import logo from "../assets/emmaus.svg";

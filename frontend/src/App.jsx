@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Routes, Route } from "react-router-dom";
-import Burger from "./components/Burger";
+import Burger from "./Components/Burger";
 import Database from "./Components/Database";
 import Home from "./pages/Home";
 import PhoneForm from "./Components/NouveauProd";
@@ -19,6 +19,7 @@ function App() {
 
       <Home />
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/nouveauproduit" element={<PhoneForm />} />
         <Route path="/databaselist" element={<Database />} />
         <Route path="/" element={<Login />} />
