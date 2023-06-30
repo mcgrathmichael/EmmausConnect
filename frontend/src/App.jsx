@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Routes, Route } from "react-router-dom";
 import Burger from "./Components/Burger";
 import Database from "./Components/Database";
